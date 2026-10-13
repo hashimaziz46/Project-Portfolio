@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { theme } from '../../styles/theme';
 import { useEffect, useState } from 'react';
+import { sections } from '../../data/profile';
 
 const NavContainer = styled(motion.nav)`
   position: fixed;
@@ -24,11 +25,13 @@ const NavContainer = styled(motion.nav)`
     display: none;
   }
 
+  /* Keep the dots slim enough to sit in the page gutter on phones */
   @media (max-width: ${theme.breakpoints.sm}) {
-    right: ${theme.spacing.sm};
-    padding: ${theme.spacing.md};
-    gap: ${theme.spacing.lg};
-    background: ${theme.colors.glass.background};
+    right: 4px;
+    padding: ${theme.spacing.sm} 5px;
+    gap: 12px;
+    background: transparent;
+    box-shadow: none;
   }
 
   @media (max-height: 500px) {
@@ -49,8 +52,9 @@ const NavDot = styled(motion.button)<{ active: boolean }>`
   transition: all ${theme.transitions.default};
 
   @media (max-width: ${theme.breakpoints.sm}) {
-    width: 14px;
-    height: 14px;
+    width: 8px;
+    height: 8px;
+    border-width: 1px;
   }
 
   &:hover {
@@ -137,13 +141,6 @@ const ProgressBar = styled(motion.div)`
     height: 2px;
   }
 `;
-
-const sections = [
-  { id: 'hero', name: 'Home' },
-  { id: 'projects', name: 'Projects' },
-  { id: 'skills', name: 'Skills' },
-  { id: 'contact', name: 'Contact' }
-];
 
 export const FloatingNav = () => {
   const [activeSection, setActiveSection] = useState('hero');

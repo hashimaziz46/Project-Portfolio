@@ -4,6 +4,7 @@ import { ReactNode, useEffect } from 'react';
 import { theme } from '../../styles/theme';
 import { FloatingNav } from '../navigation/FloatingNav';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
+import { profile, sections } from '../../data/profile';
 
 interface LayoutProps {
   children: ReactNode;
@@ -115,8 +116,13 @@ const NavLinks = styled.div`
     }
   }
 
-  @media (max-width: ${theme.breakpoints.sm}) {
-    gap: ${theme.spacing.md};
+  @media (max-width: ${theme.breakpoints.lg}) {
+    gap: ${theme.spacing.sm};
+  }
+
+  /* The floating section dots handle navigation on small screens */
+  @media (max-width: ${theme.breakpoints.md}) {
+    display: none;
   }
 `;
 
@@ -186,16 +192,13 @@ export const Layout = ({ children }: LayoutProps) => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              role="heading"
-              aria-level={1}
             >
-              Portfolio
+              <a href="#hero">{profile.name}</a>
             </Logo>
-            <NavLinks role="list">
-              <a href="#about" role="listitem" aria-label="About section">About</a>
-              <a href="#projects" role="listitem" aria-label="Projects section">Projects</a>
-              <a href="#skills" role="listitem" aria-label="Skills section">Skills</a>
-              <a href="#contact" role="listitem" aria-label="Contact section">Contact</a>
+            <NavLinks>
+              {sections.slice(1).map(({ id, name }) => (
+                <a key={id} href={`#${id}`}>{name}</a>
+              ))}
             </NavLinks>
           </div>
         </Nav>
@@ -206,7 +209,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <FloatingNav />
       <Footer role="contentinfo">
         <div className="container">
-          <p>© {new Date().getFullYear()} Your Name. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {profile.name}. All rights reserved.</p>
         </div>
       </Footer>
     </LayoutWrapper>

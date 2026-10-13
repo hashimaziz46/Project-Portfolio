@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
+import { sections as pageSections } from '../data/profile';
 
-const sections = ['hero', 'projects', 'skills', 'contact'];
+const sections = pageSections.map(({ id }) => id);
 
 export const useKeyboardNavigation = () => {
   useEffect(() => {

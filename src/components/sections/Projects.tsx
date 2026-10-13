@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { theme } from '../../styles/theme';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaUsers, FaClock, FaChartLine } from 'react-icons/fa';
 
 const ProjectsSection = styled.section`
   min-height: 100vh;
@@ -42,7 +42,7 @@ const SectionTitle = styled(motion.h2)`
 
 const ProjectGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
   gap: ${theme.spacing.lg};
   width: 100%;
   margin-top: ${theme.spacing.lg};
@@ -70,26 +70,39 @@ const ProjectCard = styled(motion.div)`
   }
 `;
 
-const ProjectImage = styled.div<{ imageUrl: string }>`
-  width: 100%;
-  height: 180px;
-  background-image: url(${props => props.imageUrl});
-  background-size: cover;
-  background-position: center;
-  position: relative;
+const ProjectMeta = styled.ul`
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: ${theme.spacing.xs};
+  margin-bottom: ${theme.spacing.md};
+  font-size: 0.85rem;
+  opacity: 0.85;
 
-  @media (min-width: ${theme.breakpoints.md}) {
-    height: 220px;
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 40%;
-    background: linear-gradient(to top, ${theme.colors.glass.card}, transparent);
+  svg {
+    color: ${theme.colors.accent};
+  }
+`;
+
+const Highlights = styled.ul`
+  margin: 0 0 ${theme.spacing.lg} 1.1rem;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  line-height: 1.6;
+  flex: 1;
+  opacity: 0.9;
+
+  li {
+    margin-bottom: ${theme.spacing.xs};
+  }
+
+  li::marker {
+    color: ${theme.colors.accent};
   }
 `;
 
@@ -105,18 +118,39 @@ const ProjectContent = styled.div`
 `;
 
 const ProjectTitle = styled.h3`
-  font-size: clamp(1.25rem, 3vw, 1.5rem);
-  margin-bottom: ${theme.spacing.sm};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: clamp(1.6rem, 3.5vw, 2rem);
+  line-height: 1.2;
+  margin-bottom: ${theme.spacing.md};
+  padding-bottom: ${theme.spacing.md};
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: ${theme.colors.light};
   font-weight: 600;
+
+  span {
+    display: block;
+    margin-top: ${theme.spacing.xs};
+    font-family: ${theme.fonts.body};
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    font-weight: 500;
+    color: ${theme.colors.textLight};
+    opacity: 0.8;
+  }
+
+  /* Fixed header height (fits a two-line name plus subtitle) so every card's header matches */
+  @media (min-width: ${theme.breakpoints.md}) {
+    min-height: 8rem;
+  }
 `;
 
 const ProjectDescription = styled.p`
   color: ${theme.colors.textLight};
-  margin-bottom: ${theme.spacing.lg};
+  margin-bottom: ${theme.spacing.md};
   font-size: clamp(0.9rem, 2vw, 1rem);
   line-height: 1.6;
-  flex: 1;
   opacity: 0.9;
 `;
 
@@ -124,11 +158,10 @@ const TechStack = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: ${theme.spacing.xs};
-  margin-bottom: ${theme.spacing.md};
+  margin-top: auto;
 
   @media (min-width: ${theme.breakpoints.md}) {
     gap: ${theme.spacing.sm};
-    margin-bottom: ${theme.spacing.lg};
   }
 `;
 
@@ -153,46 +186,88 @@ const TechTag = styled.span`
   }
 `;
 
-const ProjectLinks = styled.div`
-  display: flex;
-  gap: ${theme.spacing.md};
-  margin-top: auto;
-  padding-top: ${theme.spacing.md};
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  
-  a {
-    color: ${theme.colors.accent};
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    transition: all ${theme.transitions.default};
-    padding: ${theme.spacing.xs};
-    border-radius: 4px;
-    
-    &:hover {
-      color: ${theme.colors.light};
-      background: ${theme.colors.glass.card};
-      transform: translateY(-2px);
-    }
-  }
-`;
-
 const projects = [
   {
     id: 1,
-    title: "Project One",
-    description: "A full-stack web application with real-time features and modern UI/UX design.",
-    image: "https://via.placeholder.com/400x200",
-    techStack: ["React", "Node.js", "MongoDB", "Socket.IO"],
-    githubUrl: "https://github.com",
-    liveUrl: "https://example.com",
+    name: 'Search Acumen',
+    subtitle: 'AI-Powered Land Registry Processing',
+    description:
+      'Designed and delivered an AI document-processing system using OCR and LLMs (OpenAI GPT-4, later migrated to Claude) to read and analyse land registry documents from 145 land authorities.',
+    team: '10-member team',
+    duration: '6-month engagement',
+    revenue: '$660K revenue',
+    highlights: [
+      'Cut processing time from about 2 hours to under 15 minutes per document (87% reduction)',
+      '80% improvement in processing throughput across all 145 land authorities',
+      'AI-assisted QA process reduced reported issues by 75%',
+      'Handed over in full after the client was acquired, with zero delays',
+    ],
+    tags: ['AI / LLM', 'OCR', 'Conveyancing'],
   },
   {
     id: 2,
-    title: "Project Two",
-    description: "Mobile-first e-commerce platform with seamless payment integration.",
-    image: "https://via.placeholder.com/400x200",
-    techStack: ["Next.js", "TypeScript", "Stripe", "Tailwind"],
-    githubUrl: "https://github.com",
-    liveUrl: "https://example.com",
+    name: 'Toyota Financial Services',
+    subtitle: 'Leasing Automation',
+    description:
+      "Led a 60-person distributed team (20 onshore in the US, 40 offshore) to automate core workflows for Toyota Financial Services' leasing department.",
+    team: '60-member team',
+    duration: 'Cross-border delivery',
+    revenue: '$4.15M est. quarterly revenue',
+    highlights: [
+      'Automated invoicing with dynamic tax rates: 80% fewer errors, 60% faster processing',
+      'Automated 6 categories of lease correspondence, 30%+ more efficient',
+      'Set up a QA function: 70% faster error detection, 23% fewer incidents',
+      "Won 1st place in TFS's inter-departmental competition with zero incidents over 6 months",
+    ],
+    tags: ['Automation', 'Financial Services', 'QA'],
+  },
+  {
+    id: 3,
+    name: 'SOMOS',
+    subtitle: 'Invoice & Billing Automation',
+    description:
+      'Managed the full 6-month post-acquisition transition of SOMOS infrastructure, from parallel running to complete internal ownership, with no operational disruption.',
+    team: '30-member team',
+    duration: '6-month transition',
+    revenue: '$3.7M quarterly revenue',
+    highlights: [
+      'Automated invoice generation for a 20% gain in billing efficiency',
+      'Built a QA department from scratch, cutting billing errors by 5%',
+      'Owned quarterly business reviews with C-suite and VP stakeholders',
+    ],
+    tags: ['Billing', 'Transition Management', 'QA Setup'],
+  },
+  {
+    id: 4,
+    name: 'Shippeo',
+    subtitle: 'Telematics Integration',
+    description:
+      'Led the backend integration of real-time telematics data, including live driver tracking and shipment location, for a fleet logistics platform.',
+    team: '19-member team',
+    duration: 'Agile 2-week sprints',
+    revenue: '$1.2M revenue',
+    highlights: [
+      'Delivered 2,500 telematics units to production a month ahead of the 11-month deadline',
+      'Kept a risk register to catch API-mapping and data-format issues before they hit sprints',
+      'Shared tracking dashboard cut status-query response time by 15%',
+    ],
+    tags: ['Logistics', 'Integrations', 'Real-time Data'],
+  },
+  {
+    id: 5,
+    name: 'Drata',
+    subtitle: 'UI Component Migration',
+    description:
+      'Led a full-codebase migration of 50+ UI components to custom Drata components, using a phased rollout to keep deployment continuous.',
+    team: '20-member team',
+    duration: 'Agile 2-week sprints',
+    revenue: '$840K revenue',
+    highlights: [
+      'End users reported a 20% increase in application speed after migration',
+      'Centralised issue logging saved about 4 hours of investigation per incident',
+      'Structured QA templates increased testing throughput by 5%',
+    ],
+    tags: ['Frontend', 'Migration', 'Code Quality'],
   },
 ];
 
@@ -245,39 +320,27 @@ const Projects = () => {
               role="listitem"
               aria-labelledby={`project-title-${project.id}`}
             >
-              <ProjectImage 
-                imageUrl={project.image} 
-                role="img" 
-                aria-label={`Screenshot of ${project.title}`} 
-              />
               <ProjectContent>
-                <ProjectTitle id={`project-title-${project.id}`}>{project.title}</ProjectTitle>
+                <ProjectTitle id={`project-title-${project.id}`}>
+                  {project.name}
+                  <span>{project.subtitle}</span>
+                </ProjectTitle>
+                <ProjectMeta aria-label="Project facts">
+                  <li><FaUsers aria-hidden="true" />{project.team}</li>
+                  <li><FaClock aria-hidden="true" />{project.duration}</li>
+                  <li><FaChartLine aria-hidden="true" />{project.revenue}</li>
+                </ProjectMeta>
                 <ProjectDescription>{project.description}</ProjectDescription>
-                <TechStack role="list" aria-label={`Technologies used in ${project.title}`}>
-                  {project.techStack.map((tech) => (
-                    <TechTag key={tech} role="listitem">{tech}</TechTag>
+                <Highlights aria-label={`Key results for ${project.name}`}>
+                  {project.highlights.map((highlight) => (
+                    <li key={highlight}>{highlight}</li>
+                  ))}
+                </Highlights>
+                <TechStack role="list" aria-label={`Focus areas for ${project.name}`}>
+                  {project.tags.map((tag) => (
+                    <TechTag key={tag} role="listitem">{tag}</TechTag>
                   ))}
                 </TechStack>
-                <ProjectLinks>
-                  <a 
-                    href={project.githubUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    aria-label={`View ${project.title} source code on GitHub`}
-                  >
-                    <FaGithub aria-hidden="true" />
-                    <span className="sr-only">GitHub repository</span>
-                  </a>
-                  <a 
-                    href={project.liveUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    aria-label={`Visit ${project.title} live site`}
-                  >
-                    <FaExternalLinkAlt aria-hidden="true" />
-                    <span className="sr-only">Live site</span>
-                  </a>
-                </ProjectLinks>
               </ProjectContent>
             </ProjectCard>
           ))}

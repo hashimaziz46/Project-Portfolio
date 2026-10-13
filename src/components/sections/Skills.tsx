@@ -1,22 +1,26 @@
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { theme } from '../../styles/theme';
-import { 
-  FaReact, 
-  FaNodeJs, 
-  FaDatabase, 
-  FaDocker,
-  FaGitAlt,
-  FaAws
+import {
+  FaProjectDiagram,
+  FaTasks,
+  FaRoute,
+  FaListOl,
+  FaSyncAlt,
+  FaHandshake,
+  FaComments,
+  FaExclamationTriangle,
+  FaShieldAlt,
+  FaClipboardCheck,
+  FaCogs,
+  FaChalkboardTeacher,
+  FaDoorOpen,
+  FaTools,
+  FaJira,
+  FaChartBar,
+  FaRobot,
+  FaCode,
 } from 'react-icons/fa';
-import { 
-  SiTypescript,
-  SiJavascript,
-  SiPython,
-  SiMongodb,
-  SiPostgresql,
-  SiRedux
-} from 'react-icons/si';
 
 const SkillsSection = styled.section`
   min-height: 100vh;
@@ -63,7 +67,7 @@ const SkillsContainer = styled.div`
   margin-top: ${theme.spacing.xl};
 
   @media (min-width: ${theme.breakpoints.md}) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: ${theme.spacing.xl};
   }
 `;
@@ -153,33 +157,43 @@ const SkillItem = styled(motion.div)`
 
 const skillCategories = [
   {
-    title: 'Frontend',
-    icon: <FaReact />,
+    title: 'Agile Delivery',
+    icon: <FaProjectDiagram />,
     skills: [
-      { name: 'React', icon: <FaReact /> },
-      { name: 'TypeScript', icon: <SiTypescript /> },
-      { name: 'JavaScript', icon: <SiJavascript /> },
-      { name: 'Redux', icon: <SiRedux /> },
+      { name: 'Scrum & Sprints', icon: <FaSyncAlt /> },
+      { name: 'Roadmapping', icon: <FaRoute /> },
+      { name: 'Backlog Priority', icon: <FaListOl /> },
+      { name: 'Requirements', icon: <FaTasks /> },
     ],
   },
   {
-    title: 'Backend',
-    icon: <FaNodeJs />,
+    title: 'Stakeholders',
+    icon: <FaHandshake />,
     skills: [
-      { name: 'Node.js', icon: <FaNodeJs /> },
-      { name: 'Python', icon: <SiPython /> },
-      { name: 'MongoDB', icon: <SiMongodb /> },
-      { name: 'PostgreSQL', icon: <SiPostgresql /> },
+      { name: 'Client Workshops', icon: <FaComments /> },
+      { name: 'Exec QBRs', icon: <FaChartBar /> },
+      { name: 'Risk Management', icon: <FaExclamationTriangle /> },
+      { name: 'SOX & Vendor Risk', icon: <FaShieldAlt /> },
     ],
   },
   {
-    title: 'DevOps',
-    icon: <FaDocker />,
+    title: 'Operations',
+    icon: <FaCogs />,
     skills: [
-      { name: 'Docker', icon: <FaDocker /> },
-      { name: 'Git', icon: <FaGitAlt /> },
-      { name: 'AWS', icon: <FaAws /> },
-      { name: 'CI/CD', icon: <FaDatabase /> },
+      { name: 'QA Frameworks', icon: <FaClipboardCheck /> },
+      { name: 'Process Automation', icon: <FaCogs /> },
+      { name: 'Team Mentoring', icon: <FaChalkboardTeacher /> },
+      { name: 'On/Offboarding', icon: <FaDoorOpen /> },
+    ],
+  },
+  {
+    title: 'Tools & Tech',
+    icon: <FaTools />,
+    skills: [
+      { name: 'JIRA', icon: <FaJira /> },
+      { name: 'Dashboards', icon: <FaChartBar /> },
+      { name: 'AI / LLM Delivery', icon: <FaRobot /> },
+      { name: 'Software Eng.', icon: <FaCode /> },
     ],
   },
 ];

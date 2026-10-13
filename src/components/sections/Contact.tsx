@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { theme } from '../../styles/theme';
-import { FaEnvelope, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaEnvelope, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { profile } from '../../data/profile';
 
 const ContactSection = styled.section`
   position: relative;
@@ -200,18 +201,19 @@ const Contact = () => {
               variants={itemVariants}
               role="paragraph"
             >
-              I'm always interested in hearing about new projects and opportunities.
-              Whether you have a question or just want to say hi, feel free to reach out!
+              I'm open to project management and delivery leadership roles, and happy to talk
+              about Agile delivery, client onboarding, or bringing AI into real workflows.
+              The quickest way to reach me is by email or LinkedIn.
             </ContactText>
             <ContactEmail 
-              href="mailto:your.email@example.com"
+              href={`mailto:${profile.email}`}
               variants={itemVariants}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              aria-label="Send me an email at your.email@example.com"
+              aria-label={`Send me an email at ${profile.email}`}
             >
               <FaEnvelope aria-hidden="true" />
-              <span>your.email@example.com</span>
+              <span>{profile.email}</span>
             </ContactEmail>
             <SocialLinks 
               variants={itemVariants}
@@ -219,18 +221,7 @@ const Contact = () => {
               aria-label="Social media links"
             >
               <SocialLink 
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -5 }}
-                role="listitem"
-                aria-label="Visit my GitHub profile"
-              >
-                <FaGithub aria-hidden="true" />
-                <span className="sr-only">GitHub</span>
-              </SocialLink>
-              <SocialLink 
-                href="https://linkedin.com"
+                href={profile.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -5 }}
@@ -241,15 +232,15 @@ const Contact = () => {
                 <span className="sr-only">LinkedIn</span>
               </SocialLink>
               <SocialLink 
-                href="https://twitter.com"
+                href={profile.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -5 }}
                 role="listitem"
-                aria-label="Follow me on Twitter"
+                aria-label="Visit my GitHub profile"
               >
-                <FaTwitter aria-hidden="true" />
-                <span className="sr-only">Twitter</span>
+                <FaGithub aria-hidden="true" />
+                <span className="sr-only">GitHub</span>
               </SocialLink>
             </SocialLinks>
           </ContactContent>

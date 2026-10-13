@@ -1,10 +1,8 @@
 import styled from '@emotion/styled';
 import { theme } from '../../styles/theme';
 import { keyframes } from '@emotion/react';
-import { lazy, Suspense } from 'react';
-const FaGithub = lazy(() => import('react-icons/fa').then(mod => ({ default: mod.FaGithub })));
-const FaLinkedin = lazy(() => import('react-icons/fa').then(mod => ({ default: mod.FaLinkedin })));
-const FaEnvelope = lazy(() => import('react-icons/fa').then(mod => ({ default: mod.FaEnvelope })));
+import { FaGithub, FaLinkedin, FaEnvelope, FaDownload } from 'react-icons/fa';
+import { profile, highlights } from '../../data/profile';
 
 const HeroSection = styled.section`
   min-height: calc(100vh - 4.5rem);
@@ -64,10 +62,9 @@ const Title = styled.h1`
   color: ${theme.colors.light};
   line-height: 1.1;
   letter-spacing: -0.02em;
-  white-space: nowrap;
 `;
 
-const Subtitle = styled.h2`
+const Subtitle = styled.p`
   animation: ${fadeUpKeyframes} 0.5s ease-out 0.2s forwards;
   opacity: 0;
   font-size: clamp(1.5rem, 3vw, 2.25rem);
@@ -80,15 +77,39 @@ const Description = styled.p`
   animation: ${fadeUpKeyframes} 0.5s ease-out 0.4s forwards;
   opacity: 0;
   font-size: clamp(1rem, 1.2vw, 1.2rem);
-  max-width: 600px;
-  margin-bottom: ${theme.spacing.xl};
+  max-width: 680px;
+  margin-bottom: ${theme.spacing.lg};
   opacity: 0.8;
   line-height: 1.7;
 `;
 
-const SocialLinks = styled.div`
+const Actions = styled.div`
   animation: ${fadeUpKeyframes} 0.5s ease-out 0.6s forwards;
   opacity: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: ${theme.spacing.lg};
+`;
+
+const ResumeButton = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: ${theme.spacing.sm};
+  padding: ${theme.spacing.sm} ${theme.spacing.lg};
+  border-radius: 30px;
+  font-weight: 600;
+  background: ${theme.colors.gradient.accent};
+  color: ${theme.colors.textDark};
+  transition: all ${theme.transitions.default};
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(246, 177, 122, 0.3);
+  }
+`;
+
+const SocialLinks = styled.div`
   display: flex;
   gap: ${theme.spacing.md};
   
@@ -120,58 +141,95 @@ const SocialLinks = styled.div`
   }
 `;
 
+const Highlights = styled.dl`
+  animation: ${fadeUpKeyframes} 0.5s ease-out 0.5s forwards;
+  opacity: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: ${theme.spacing.md} ${theme.spacing.lg};
+  margin-bottom: ${theme.spacing.xl};
+
+  @media (min-width: ${theme.breakpoints.md}) {
+    grid-template-columns: repeat(4, auto);
+    justify-content: start;
+    gap: ${theme.spacing.md} ${theme.spacing.xl};
+  }
+
+  div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  dt {
+    font-size: 0.9rem;
+    opacity: 0.75;
+  }
+
+  dd {
+    font-family: ${theme.fonts.heading};
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 600;
+    color: ${theme.colors.accent};
+    line-height: 1.2;
+  }
+`;
+
 export const Hero = () => {
   return (
     <HeroSection id="hero" role="region" aria-label="Introduction">
       <div className="container">
         <HeroContent>
           <div>
-            <Title role="heading" aria-level={2}>
-              Hi, I'm [Your Name]
+            <Title>
+              Hi, I'm {profile.name}
             </Title>
-            <Subtitle role="heading" aria-level={3}>
-              Full Stack Developer
+            <Subtitle>
+              {profile.title}
             </Subtitle>
-            <Description role="paragraph">
-              I create elegant solutions to complex problems, specializing in modern web development
-              with a focus on user experience and clean code.
+            <Description>
+              {profile.summary}
             </Description>
-            <SocialLinks role="list" aria-label="Social media links">
-              <a 
-                href="https://github.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="Visit my GitHub profile"
-                role="listitem"
-              >
-                <Suspense fallback={<div style={{ width: '1.5rem', height: '1.5rem' }} />}>
-                  <FaGithub aria-hidden="true" />
-                </Suspense>
-                <span className="sr-only">GitHub</span>
-              </a>
-              <a 
-                href="https://linkedin.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="Visit my LinkedIn profile"
-                role="listitem"
-              >
-                <Suspense fallback={<div style={{ width: '1.5rem', height: '1.5rem' }} />}>
+            <Highlights aria-label="Career highlights">
+              {highlights.map(({ value, label }) => (
+                <div key={label}>
+                  <dt>{label}</dt>
+                  <dd>{value}</dd>
+                </div>
+              ))}
+            </Highlights>
+            <Actions>
+              <ResumeButton href={profile.resume} download="Hashim-Aziz-Resume.pdf">
+                <FaDownload aria-hidden="true" />
+                Download Resume
+              </ResumeButton>
+              <SocialLinks role="list" aria-label="Social media links">
+                <a 
+                  href={profile.linkedin} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="Visit my LinkedIn profile"
+                  role="listitem"
+                >
                   <FaLinkedin aria-hidden="true" />
-                </Suspense>
-                <span className="sr-only">LinkedIn</span>
-              </a>
-              <a 
-                href="mailto:your.email@example.com"
-                aria-label="Send me an email"
-                role="listitem"
-              >
-                <Suspense fallback={<div style={{ width: '1.5rem', height: '1.5rem' }} />}>
+                </a>
+                <a 
+                  href={profile.github} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="Visit my GitHub profile"
+                  role="listitem"
+                >
+                  <FaGithub aria-hidden="true" />
+                </a>
+                <a 
+                  href={`mailto:${profile.email}`}
+                  aria-label="Send me an email"
+                  role="listitem"
+                >
                   <FaEnvelope aria-hidden="true" />
-                </Suspense>
-                <span className="sr-only">Email</span>
-              </a>
-            </SocialLinks>
+                </a>
+              </SocialLinks>
+            </Actions>
           </div>
         </HeroContent>
       </div>

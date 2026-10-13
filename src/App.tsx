@@ -7,8 +7,11 @@ import { theme } from './styles/theme';
 import styled from '@emotion/styled';
 
 // Lazy load non-critical components
+const Experience = lazy(() => import('./components/sections/Experience'));
 const Projects = lazy(() => import('./components/sections/Projects'));
 const Skills = lazy(() => import('./components/sections/Skills'));
+const Education = lazy(() => import('./components/sections/Education'));
+const Resume = lazy(() => import('./components/sections/Resume'));
 const Contact = lazy(() => import('./components/sections/Contact'));
 
 // Loading fallback component
@@ -36,11 +39,20 @@ function App() {
         <Hero />
         
         {/* Wrap non-critical sections in Suspense */}
+        <Suspense fallback={<LoadingFallback>Loading experience...</LoadingFallback>}>
+          <Experience />
+        </Suspense>
         <Suspense fallback={<LoadingFallback>Loading projects...</LoadingFallback>}>
           <Projects />
         </Suspense>
         <Suspense fallback={<LoadingFallback>Loading skills...</LoadingFallback>}>
           <Skills />
+        </Suspense>
+        <Suspense fallback={<LoadingFallback>Loading education...</LoadingFallback>}>
+          <Education />
+        </Suspense>
+        <Suspense fallback={<LoadingFallback>Loading resume...</LoadingFallback>}>
+          <Resume />
         </Suspense>
         <Suspense fallback={<LoadingFallback>Loading contact...</LoadingFallback>}>
           <Contact />
