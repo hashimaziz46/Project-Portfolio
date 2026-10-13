@@ -1,6 +1,6 @@
 # Hashim Aziz | Project Portfolio
 
-Live site: https://hashimaziz46.github.io/Project-Portfolio/
+Live site: https://hashimaziz46.github.io/
 
 Personal portfolio for Hashim Aziz, Project Manager & Scrum Master. Built with React 19, TypeScript, Vite, Emotion and Framer Motion, based on the [portfolio-01](https://github.com/simpleC0de/portfolio-01) template (MIT).
 
@@ -10,7 +10,7 @@ Requires Node 18+ (Node 20 recommended).
 
 ```bash
 npm install
-npm run dev     # http://localhost:5173/Project-Portfolio/
+npm run dev     # http://localhost:5173/
 npm run build   # production build into dist/
 npm run lint
 ```
